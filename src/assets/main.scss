@@ -18,6 +18,99 @@
         margin-top: 134px;
     }
 
+    .scorePart{
+        display: flex;
+        flex-direction: column;
+        margin-top: 23px;
+
+        .scoreTitle{
+            font-style: normal;
+            font-weight: bold;
+            font-size: 30px;
+            line-height: 150%;
+            text-align: center;
+        }
+
+        .scoreTable{
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            width: 320px;
+            background-color: #F6F7F8;
+            border: 2px solid #E7EBF1;
+            box-sizing: border-box;
+            border-radius: 18px;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding-top: 15px;
+            padding-bottom: 15px;
+
+            
+            .headerPart{
+                border-bottom: 2px solid black;
+
+                .score{
+                    font-size: 22px;
+                }
+
+                .date{
+
+                }
+            }
+
+            .horizontal{
+                position: fixed;
+                height: 2px;
+                width: 80%;
+                top: 51px;
+                background-color: black;
+            }
+
+            .vertical{
+                position: fixed;
+                height: 80%;
+                width: 2px;
+                background-color: black;
+            }
+
+
+            .item{
+                display: flex;
+                justify-content: space-between;
+                
+                width: 80%;
+                
+                box-sizing: border-box;
+                
+                .score{
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 18px;
+                    line-height: 150%;
+                    width: 30%;
+                    border-right: 2px solid black;
+                    padding-top: 10px;
+                    padding-bottom: 4px;
+                }
+
+                .date{
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 18px;
+                    line-height: 150%;
+                    padding-top: 10px;
+                    padding-bottom: 4px;
+                }
+
+            }
+        }
+    }
+
+    .hideScorePart{
+        display: none;
+    }
+
     .questionType{
         display: none;
     }
@@ -28,6 +121,10 @@
         font-size: 30px;
         line-height: 150%;
         margin-top: 146px;
+    }
+
+    .categoryTitleWithScore{
+        margin-top: 60px;
     }
 
     .categorySelectorPart{
@@ -85,6 +182,7 @@
             top: calc(100% + 6px);
             display: flex;
             opacity: 0;
+            visibility: hidden;
             flex-direction: column;
             width: 100%;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.04);
@@ -95,7 +193,7 @@
             transition: 0.5s;
             background-color: #F6F7F8;
             padding: 10px;
-            max-height: 300px;
+            max-height: 250px;
             overflow-y: auto;
 
             .option{
@@ -119,6 +217,7 @@
             }
         }
         .categorySelectorOptionsActive{
+            visibility: visible;
             opacity: 1;
         }
     }

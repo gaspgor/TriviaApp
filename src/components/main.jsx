@@ -2,12 +2,13 @@ import '../assets/main.scss'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
+import Question from './question';
 
 function Main (){
     const categorySelector = useRef(null)
     const categoryName = useRef(null)
-    const [score, setScore] = useState(localStorage.getItem("score"))
-    const [currentScore, setCUrrentScore] = useState(JSON.parse(localStorage.getItem("currentScore")?localStorage.getItem("currentScore"):"{}"))
+    const [score, setScore] = useState(sessionStorage.getItem("score"))
+    const [currentScore, setCUrrentScore] = useState(JSON.parse(sessionStorage.getItem("currentScore")?sessionStorage.getItem("currentScore"):"{}"))
     const [categories, setCategories] = useState([])
     const [selectedCategory, setCategory] = useState(-1)
     const [selectroActiveClass, setSelectroActiveClass] = useState("")
@@ -28,7 +29,12 @@ function Main (){
                 console.log(error)
                 alert("Error")
             })
+        // setTimeout(() => {
+        //     setCUrrentScore({...currentScore, currentPoint: 1})
+        // }, 5000)
     }, [])
+
+
 
     useEffect(() => {
         if(selectedCategory>=0){
@@ -37,7 +43,8 @@ function Main (){
         }
     }, [selectedCategory])
     useEffect(() => {
-        sessionStorage.setItem("currentScore", currentScore)
+        console.log("angfjksdkjfh kajsdbf jasd jk")
+        sessionStorage.setItem("currentScore", JSON.stringify(currentScore))
     }, [currentScore])
 
     
@@ -50,13 +57,11 @@ function Main (){
 
     const startTrivia = () => {
         if(selectedCategory>=0){
-            console.log(categories[selectedCategory])
             axios.get("https://opentdb.com/api.php?amount=10&category=" + categories[selectedCategory].id)
                 .then((response) => {
-                    console.log(response.data)
                     setCUrrentScore({
                         points: 0,
-                        complated: false,
+                        started: true,
                         currentPoint: 0,
                         questions: response.data.results.map((elem, index) => {
                             // correct_answer         difficulty         type       incorrect_answers
@@ -80,47 +85,58 @@ function Main (){
         }
     }
 
+    // const changeQuestionType = () => {
+    //     questionType.current.getElementsByTagName("p")[0].classList.add("hideP")
+    //     questionType.current.classList.remove("Type")
+    //     setTimeout(() => {
+    //         questionType.current.getElementsByTagName("p")[0].innerText = currentScore.questions[currentScore.currentPoint].difficulty
+    //         questionType.current.getElementsByTagName("p")[0].classList.remove("hideP")
+    //     }, 300);
+    // }
+
 
     return <div className="main">
         
-        <h2>Trivia App</h2>
-        <div className="questionType"></div>
-        <div className={sessionStorage.getItem("score")?"scorePart":"scorePart hideScorePart"}>
-            <p className="scoreTitle">Score</p>
-            <div className="scoreTable">
-                {/* <div className="horizontal"></div>
-                <div className="vertical"></div> */}
-                <div className="item headerPart">
-                    <p className="score">Score</p>
-                    <p className="date">Date</p>
-                </div>
-                <div className="item">
-                    <p className="score">5 / 10</p>
-                    <p className="date">2021/11/13 14:05:03</p>
-                </div>
-                <div className="item">
-                    <p className="score">5 / 10</p>
-                    <p className="date">2021/11/13 14:05:03</p>
-                </div>
-            </div>
-        </div>
-        <p className={sessionStorage.getItem("score")?"categoryTitle categoryTitleWithScore":"categoryTitle"}>Pick a Category</p>
-        <div className="categorySelectorPart">
-            <div className={"categorySelector " + selectroActiveClass} onClick={selectorClickFunc}>
-                <p ref={categoryName}>{selectedCategory<0?"Category":categories[selectedCategory].name}</p>
-                <ArrowBackIosNewIcon className={"icon " + arrowClass}/>
-            </div>
-            <div className="categorySelectorOptions" ref={categorySelector}>
-                {categories.map((elem, index) => {
-                    return <div key={index} onClick={() => {setCategory(index)}} className="option">
-                        <p>{elem.name}</p>
+        <h2>{currentScore.started?"Question " + (currentScore.currentPoint + 1):"Trivia App"}</h2>
+        {currentScore.started?<Question question={currentScore.questions[currentScore.currentPoint]}  updateFunc={setCUrrentScore} currentScore={currentScore} />:<div className="startPart">
+            <div className={sessionStorage.getItem("score")?"scorePart":"scorePart hideScorePart"}>
+                <p className="scoreTitle">Score</p>
+                <div className="scoreTable">
+                    {/* <div className="horizontal"></div>
+                    <div className="vertical"></div> */}
+                    <div className="item headerPart">
+                        <p className="score">Score</p>
+                        <p className="date">Date</p>
                     </div>
-                })}
+                    <div className="item">
+                        <p className="score">5 / 10</p>
+                        <p className="date">2021/11/13 14:05:03</p>
+                    </div>
+                    <div className="item">
+                        <p className="score">5 / 10</p>
+                        <p className="date">2021/11/13 14:05:03</p>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div className={"start " + startClass} onClick={startTrivia}>
-            <p>Start</p>
-        </div>
+            <p className={sessionStorage.getItem("score")?"categoryTitle categoryTitleWithScore":"categoryTitle"}>Pick a Category</p>
+            <div className="categorySelectorPart">
+                <div className={"categorySelector " + selectroActiveClass} onClick={selectorClickFunc}>
+                    <p ref={categoryName}>{selectedCategory<0?"Category":categories[selectedCategory].name}</p>
+                    <ArrowBackIosNewIcon className={"icon " + arrowClass}/>
+                </div>
+                <div className="categorySelectorOptions" ref={categorySelector}>
+                    {categories.map((elem, index) => {
+                        return <div key={index} onClick={() => {setCategory(index)}} className="option">
+                            <p>{elem.name}</p>
+                        </div>
+                    })}
+                </div>
+            </div>
+            <div className={"start " + startClass} onClick={startTrivia}>
+                <p>Start</p>
+            </div>
+        </div>}
+        
     </div>
 }
 

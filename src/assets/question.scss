@@ -1,0 +1,103 @@
+.question{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 80%;
+
+    .questionType{
+        margin-top: 22px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100px;
+        padding-top: 4px;
+        padding-bottom: 6px;
+        border-radius: 12px 0px 12px 12px;
+        transition: 0.3s;
+        
+        p{
+            font-style: normal;
+            opacity: 1;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 170%;
+            color: white;
+            text-transform: capitalize;
+            transition: 0.3s;
+        }
+
+        .hideP{
+            opacity: 0;
+        }
+    }
+
+    .unType{
+        display: none;
+    }
+
+    .easyType{
+        background-color: #42A976;
+    }
+
+    .mediumType{
+        background-color: #EAC505;
+    }
+
+    .hardType{
+        background-color: #EF7D54;
+    }
+
+    .questionName{
+        font-style: normal;
+        font-weight: bold;
+        font-size: 30px;
+        line-height: 150%;
+        color: #354153;
+        text-align: center;
+        margin-top: 67px;
+    }
+
+    .versions{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 56px;
+
+        .version{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 290px;
+            min-height: 56px;
+            padding-top: 16px;
+            padding-bottom: 16px;
+            margin-left: 12px;
+            margin-right: 12px;
+            border: 2px solid #95B6A9;
+            box-sizing: border-box;
+            border-radius: 18px;
+            margin-top: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+
+            p{
+                font-style: normal;
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 22px;
+                color: #354153;
+                transition: 0.2s;
+            }
+
+            &:hover{
+                border: none;
+                background-color: #D4E0E0;
+
+                p{
+                    color: #2D6A4C;
+                }
+            }
+        }
+        
+    }
+}

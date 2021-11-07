@@ -87,11 +87,14 @@
                     .answers{
                         display: flex;
                         flex-direction: column;
+                        margin-top: 30px;
 
                         .answer{
                             display: flex;
                             align-items: center;
                             position: relative;
+                            margin-top: 5px;
+                            margin-bottom: 5px;
 
                             .icon{
                                 width: 30px;

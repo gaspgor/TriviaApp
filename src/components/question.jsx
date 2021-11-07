@@ -19,7 +19,6 @@ function Question({updateFunc, currentScore}){
     const [answersArray, setAnswersArray] = useState([])
 
     useEffect(() => {
-        console.log(questionState)
         setQuestionState(currentScore.questions[currentScore.currentPoint])
     }, [currentScore])
 
@@ -62,8 +61,8 @@ function Question({updateFunc, currentScore}){
         <p className="questionName">{questionState.question}</p>
 
         <div className="versions">
-            {answersArray.map((elem) => {
-                return <div className="version" onClick={() => {answerQuest(elem)}}>
+            {answersArray.map((elem, index) => {
+                return <div key={index} className="version" onClick={() => {answerQuest(elem)}}>
                     <p>{elem}</p>
                 </div>
             })}

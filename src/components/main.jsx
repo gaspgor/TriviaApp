@@ -137,7 +137,7 @@ function Main (){
                     <div className={"scoreContent"}>
                         {score.map((elem, index) => {
                             elem.selectedQuestion = -1
-                            return <div className="item" onClick={() => setSelectedScore(elem)}>
+                            return <div key={index} className="item" onClick={() => setSelectedScore(elem)}>
                                 <p className="score">{elem.points + " / 10"}</p>
                                 <p className="date">{elem.endDate}</p>
                             </div>
@@ -153,7 +153,7 @@ function Main (){
                             <p className="question">{(selectedScore.selectedQuestion+1) + ". " + selectedScore.questions[selectedScore.selectedQuestion].question}</p>
                             <div className="answers">
                                 {selectedScore.questions[selectedScore.selectedQuestion].randomedAnswers.map((elem, index) => {
-                                    return <div className="answer">
+                                    return <div key={index} className="answer">
                                         {elem==selectedScore.questions[selectedScore.selectedQuestion].correctAnswer?<CheckIcon className="icon correctIcon"/>:elem==selectedScore.questions[selectedScore.selectedQuestion].checkedAnswer?<CloseIcon className="icon incorrectIcon"/>:""}
                                         
                                         
@@ -181,10 +181,9 @@ function Main (){
                         </div>
                         <p className="score">{selectedScore.points + " / 10"}</p>
                     </div>
-                    {/* 25 */}
                     <div className="questions">
                         {selectedScore.questions?selectedScore.questions.map((elem, index) => {
-                            return <div className={"question " + (elem.correct==true?"correct":"incorrect")} onClick={() => {setSelectedScore({...selectedScore, selectedQuestion: index})}}>
+                            return <div key={index} className={"question " + (elem.correct==true?"correct":"incorrect")} onClick={() => {setSelectedScore({...selectedScore, selectedQuestion: index})}}>
                                 <p> {index+1}.  {elem.question.toString().substring(0, 25)}{elem.question.length>20?"...":""}</p>
                             </div>
                         }):""}

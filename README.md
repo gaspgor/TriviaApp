@@ -1,3 +1,4 @@
     ```sh
-    $ create-react-app react-gh-pages
+    $ npm install
+    $ npm start
     ```
